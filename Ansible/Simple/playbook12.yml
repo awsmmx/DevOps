@@ -1,0 +1,20 @@
+---
+- name: Secret Vault
+  hosts: all
+  become: yes
+
+  vars:
+    admin_password: PASSw0rd1234@
+
+  tasks:
+    - name: Install packeg Tree
+      yum: name=treee state:latest
+
+    - name: Create Config File
+      copy:
+        dest: "/home/ec2-user/myconfig.conf"
+        content: port = 9092
+          log  = 7days
+          home = /opt/kafka/bin/
+          user = meraki_adminpassword
+          password = {{admin_password}}

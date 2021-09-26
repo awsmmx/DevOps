@@ -1,0 +1,20 @@
+---
+- name: Playbook9
+  hosts: all
+  become: yes
+
+  vars:
+    mytext: "Text"
+
+  tasks:
+    - name: Ping test
+      ping:
+
+- name: Create Folders
+  import_tasks: folders.yml
+
+- name: Create Files
+  include_files: files.yml
+
+- name: Create Files
+  include_files: files.yml mytext="Hello from Ansible"

@@ -1,0 +1,24 @@
+---
+- name: Error handling
+  hosts: all
+  any_errors_fatal: true
+  become: yes
+
+  tasks:
+    - name: Task 1
+      yum: name=treeeeee state=latest
+      ignore_errors: yes
+
+    - name: Task 2
+      shell: ls -la /etc/
+      register: result
+      failed_when: result.rc != 0
+    - debug:
+        var: result.stdout_lines
+
+    - name: Task 3
+      shell: echo Task3!
+
+    - name: Task4
+      shell: cat /home/ec2-user/myfile.txt
+      register: result
