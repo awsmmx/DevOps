@@ -1,0 +1,21 @@
+FROM node:15.4 as build 
+
+WORKDIR /app
+
+COPY package*.json .
+RUN npm install 
+COPY . .
+RUN npm run build
+
+#Build folder will created 
+
+#We need only build folder and conf file 
+FROM nginx:latest 
+
+#Copy conf & build folder to nginx
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /app/build /usr/share/nginx/html
+
+
+#docker build -t app .
+#docker run -p :80 app

@@ -1,0 +1,30 @@
+---
+- name: Loops Playbook
+  hosts: linux3
+  become: yes
+
+  tasks:
+    - name: Loop and with_item
+      debug: msg="Hello {{item}}"
+      loop:
+        - "1"
+        - "2"
+        - "3"
+
+    - name: Loop Until
+      shell: echo -n Z >> myfile.txt && cat myfile.txt
+      register: output
+      delay: 2
+      retries: 10
+      until: output.stdout.find("ZZZZ") == false
+
+    - name: Print final output
+      debug:
+        var: output.stdout
+
+    - name: Install many packages
+      yum: name={{item}} state=installed
+      loop:
+        - python
+        - tree
+        - mysql-client

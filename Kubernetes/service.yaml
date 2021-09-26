@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+  labels:
+    env  : dev
+    owner: Max
+spec:
+  selector:
+    app: my-app
+  ports:
+    - name      : app-listener
+      protocol  : TCP
+      port      : 80
+      targetPort: 80
+
+    - name      : second-app
+      protocol  : TCP
+      port      : 8888
+      targetPort: 8080
+
+  type: ClusterIP #LoadBalancer/NodePort

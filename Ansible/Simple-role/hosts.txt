@@ -1,0 +1,22 @@
+
+[STAGING_SERVERS_WEB]
+linuxX1 ansible_host=172.31.8.69 owner=Admin
+linuxX2 ansible_host=172.31.8.70 password=mysecret
+
+
+[PROD_SERVERS_WEB]
+linux1 ansible_host=172.31.27.16
+linux2 ansible_host=172.31.19.188
+
+
+[STAGING_SEERVERS_DB]
+linux3 ansible_host=172.31.27.1
+172.31.27.2
+
+[PROD_SEERVERS_DB]
+172.31.27.10
+172.31.27.20
+
+[ALL_SERVERS_DB:children]
+STAGING_SEERVERS_DB
+PROD_SEERVERS_DB
